@@ -8,6 +8,7 @@ import ContactList from './ContactList';
 
 function App() {
 
+  //temporary data before creating DB
   const contacts = [
     {
       name: 'John',
@@ -18,6 +19,11 @@ function App() {
       name: 'Claire',
       email: 'claire@example.com',
       id: 2
+    },
+    {
+      name: 'Kalani',
+      email: 'kalani@test.com',
+      id: 3
     }
   ]
 

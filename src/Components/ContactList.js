@@ -1,28 +1,18 @@
 import React from 'react'
-import { TiTrash } from 'react-icons/ti'
+import ContactCard from './ContactCard'
 
-const ContactList = (props, event) => {
+const ContactList = (props) => {
 
-  console.log(props);
-
-  const mapContactsToList = props.contacts.map((contact) => {
+  //map contacts composed into individual cards
+  const mapContactsToList = props.contacts.map((contact, i) => {
     return (
-      <div className="contact-card">
-        <div className="contact-card-ontent">
-          <header className="contact-card-header"> {contact.name} </header>
-          <div className="contact-card-email"> {contact.email} </div>
-        </div>
-        <div className="contact-card-footer">
-          <TiTrash onClick={() => console.log(contact)}/>
-        </div>
-      </div>
+      <ContactCard key={contact.name} contact={contact} index={i} contacts={props.contacts}/>
     )
-  })
-
+  });
 
   return (
     <div className="contact-list">
-     {mapContactsToList}
+        {mapContactsToList}
     </div>
   )
 }
