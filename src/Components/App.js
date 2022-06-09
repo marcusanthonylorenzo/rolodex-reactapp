@@ -1,5 +1,5 @@
 
-import React from 'react';
+import {useState, React, useEffect} from 'react';
 import './App.css';
 import Header from './Header';
 import AddContact from './AddContact';
@@ -7,30 +7,29 @@ import ContactList from './ContactList';
 
 
 function App() {
+  const LOCAL_STORAGE_KEY = "contacts";
+  const [contacts, setContacts] = useState([]);
 
-  //temporary data before creating DB
-  const contacts = [
-    {
-      name: 'John',
-      email: 'john@example.com',
-      id: 1
-    },
-    {
-      name: 'Claire',
-      email: 'claire@example.com',
-      id: 2
-    },
-    {
-      name: 'Kalani',
-      email: 'kalani@test.com',
-      id: 3
-    }
-  ]
+  const addContactHandler = (contact) => {
+    setContacts([...contacts, contact]);
+  }
+
+  //get local storage contacts by key, parse, if there are localStorageContacts, setContacts
+  useEffect(() => {
+    const getLocalStorageContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    console.log(getLocalStorageContacts);
+    if (getLocalStorageContacts) setContacts(getLocalStorageContacts);
+  }, []);
+  
+  //set local storage array of obj contacts in "contacts" key.
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts))}, [contacts]);
+
 
   return (
     <div className="container">
       <Header />
-      <AddContact />
+      <AddContact addContactHandler={addContactHandler}/>
       <ContactList contacts={contacts} />
     </div>
   );
