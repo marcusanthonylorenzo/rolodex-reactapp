@@ -13,9 +13,10 @@ const ContactCard = ({ contact, contacts }) => {
           <TiTrash onClick={() => {
             //splice contact, may need to change depending on db
             // contacts.splice(index, 1)
-            // localStorage.removeItem('contacts', contact.id);
+            localStorage.removeItem(contacts, contact.id);
             //need to remove browser card as well
             console.log(contacts);
+
           }} style={{transform: `scale(1.5)`}}/>
         </div>
       </div>

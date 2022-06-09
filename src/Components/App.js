@@ -7,7 +7,9 @@ import ContactList from './ContactList';
 
 
 function App() {
+  //local storage handlers
   const LOCAL_STORAGE_KEY = "contacts";
+  const localStorageReference = localStorage.getItem(LOCAL_STORAGE_KEY);
   const [contacts, setContacts] = useState([]);
 
   const addContactHandler = (contact) => {
@@ -16,8 +18,7 @@ function App() {
 
   //get local storage contacts by key, parse, if there are localStorageContacts, setContacts
   useEffect(() => {
-    const getLocalStorageContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
-    console.log(getLocalStorageContacts);
+    const getLocalStorageContacts = JSON.parse(localStorageReference);
     if (getLocalStorageContacts) setContacts(getLocalStorageContacts);
   }, []);
   
@@ -25,12 +26,11 @@ function App() {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts))}, [contacts]);
 
-
   return (
     <div className="container">
       <Header />
       <AddContact addContactHandler={addContactHandler}/>
-      <ContactList contacts={contacts} />
+      <ContactList contacts={contacts} localStorage={localStorageReference} />
     </div>
   );
 }
