@@ -27,7 +27,6 @@ function App() {
     if (getLocalStorageContacts) setContacts(getLocalStorageContacts);
   }, []);
   
-  //set local storage array of obj contacts in "contacts" key.
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts))}, [contacts]);
 

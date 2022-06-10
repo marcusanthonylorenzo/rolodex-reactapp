@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <div className="header-container">
       <div className="header-content">
-        <h2>Rolodex Manager</h2>
+        <h2>Rolodex</h2>
       </div>
     </div>
   );

@@ -17,7 +17,6 @@ export default class AddContact extends React.Component {
       console.log("woop");
     }
     this.initialId = getInitialId;
-    console.log(this.initialId)
     return getInitialId;
   }
 
@@ -25,12 +24,9 @@ export default class AddContact extends React.Component {
     e.preventDefault();
 
     this.initialId = this.getCurrentIds();
-    console.log(this.initialId, this.getCurrentIds())
-
     this.initialId++
     this.setState({id: this.initialId});
-
-    //store in local storage
+    
     localStorage.setItem("initialId", this.initialId);
 
     //current state is newly added contact
@@ -51,7 +47,9 @@ export default class AddContact extends React.Component {
             <div className="form-field">
               <input type="text" className="form-control" placeholder="Email"  onChange={ e => this.setState({email: e.target.value})} value={this.state.email}/>
             </div>
-            <button className="button"> Add</button>
+            <button className="button" style={{
+
+            }}> Add</button>
         </form>
       </div>
     )

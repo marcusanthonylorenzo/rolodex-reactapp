@@ -10,7 +10,7 @@ const ContactCard = ({ contact, contacts, checkId}) => {
   return (
     <div className="contact-card">
       <div className="contact-card-content">
-        <header className="contact-card-header"> {contact.name} </header>
+        <header className="contact-card-header"> <h4>{contact.name}</h4> </header>
         <div className="contact-card-email"> {contact.email} </div>
         <div className="contact-card-footer">
           <h5>Edit</h5>
