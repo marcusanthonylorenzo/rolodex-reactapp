@@ -34,12 +34,12 @@
   flex-direction: column;
 }
 
-.form input, .form button {
+.form input, .button {
   margin: 0.6em;
   height: 1.6em;
 }
 
-.form button {
+.button {
   background-color: rgb(136, 100, 238);
   color:rgb(220, 227, 255);
   font-weight: 500;
@@ -48,7 +48,7 @@
   box-shadow: 0 2px 2px 0 rgba(55, 51, 51, 0.4);
 }
 
-.form button:hover {
+.button:hover {
   background-color: rgb(205, 187, 255);
   color:rgb(104, 72, 192);
   font-weight: 550;
@@ -56,7 +56,7 @@
   transform: scale(0.95);
 }
 
-.form button:active {
+.button:active {
   transform: scale(0.93);
 }
 
@@ -94,6 +94,12 @@
   margin-top: 10%;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.contact-card-footer > *:hover, .trash-icon > *:hover {
+  color: rgba(233, 72, 72, 0.94);
+  transform: scale(.95);
+  animation-duration: 100ms;
 }
 
 /*** Carousel styles  ***/

@@ -1,5 +1,6 @@
 
 import {useState, React, useEffect} from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import AddContact from './AddContact';
@@ -32,9 +33,22 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
-      <AddContact addContactHandler={addContactHandler}/>
-      <ContactList contacts={contacts} localStorage={localStorageReference} filterOutContactId={filterContactHandler} />
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/add" element={
+
+            <AddContact addContactHandler={addContactHandler}/>
+          } />
+
+          {/* react v6 allows element={} to supplant component without compromise.*/}
+          <Route path="/" element={
+            <ContactList contacts={contacts} localStorage={localStorageReference} filterOutContactId={filterContactHandler} />
+          
+          }/>
+        </Routes>
+
+      </Router>
     </div>
   );
 }

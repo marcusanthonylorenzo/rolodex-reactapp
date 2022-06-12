@@ -14,7 +14,7 @@ const ContactCard = ({ contact, contacts, checkId}) => {
         <div className="contact-card-email"> {contact.email} </div>
         <div className="contact-card-footer">
           <h5>Edit</h5>
-          <TiTrash onClick={() => {
+          <TiTrash className={`trash-icon`} onClick={() => {
 
             //give this contact.id to checkId prop, execute filterout of this id
             checkId(contact.id);

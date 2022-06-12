@@ -1,6 +1,7 @@
 import React from 'react'
 import ContactCard from './ContactCard'
 import Carousel from 'better-react-carousel'
+import { Link } from 'react-router-dom'
 
 const ContactList = (props) => {
 
@@ -30,9 +31,15 @@ const ContactList = (props) => {
 
   return (
       <div className="contact-list">
+
         <Carousel cols={4} rows={1} gap={0} loop>
             {mapContactsToList}
         </Carousel>
+
+        <Link to="/add">
+          <button className="button">Add New Contacts</button>
+        </Link>
+
       </div>
   )
 }
