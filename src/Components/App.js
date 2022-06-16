@@ -1,16 +1,21 @@
 
 import {useState, React, useEffect} from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import AddContact from './AddContact';
 import ContactList from './ContactList';
+import ContactDetails from './ContactDetails';
 
 function App() {
   //local storage handlers
   const LOCAL_STORAGE_KEY = "contacts";
   const localStorageReference = localStorage.getItem(LOCAL_STORAGE_KEY);
   const [contacts, setContacts] = useState([]);
+
+  //useNavigate passed through AddContactWrapper
+  //due to deprecated class componenet support.
+  // const nav = useNavigate();
 
   const addContactHandler = (contact) => {
     setContacts([...contacts, contact]);
@@ -28,23 +33,28 @@ function App() {
     if (getLocalStorageContacts) setContacts(getLocalStorageContacts);
   }, []);
   
-  useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts))}, [contacts]);
+  useEffect(() => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts)), [contacts]);
 
   return (
     <div className="container">
       <Router>
         <Header />
+
         <Routes>
           <Route path="/add" element={
-
             <AddContact addContactHandler={addContactHandler}/>
-          } />
+          }/>
 
           {/* react v6 allows element={} to supplant component without compromise.*/}
           <Route path="/" element={
-            <ContactList contacts={contacts} localStorage={localStorageReference} filterOutContactId={filterContactHandler} />
-          
+            <ContactList contacts={contacts}
+              localStorage={localStorageReference}
+              filterOutContactId={filterContactHandler}
+            />
+
+          }/>
+          <Route path="/contact/:id" element={
+            <ContactDetails contacts={contacts}/>
           }/>
         </Routes>
 
