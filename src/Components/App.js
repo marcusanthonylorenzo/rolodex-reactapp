@@ -6,31 +6,55 @@ import Header from './Header';
 import AddContact from './AddContact';
 import ContactList from './ContactList';
 import ContactDetails from './ContactDetails';
+import axios from '../Api/axios.js'
 
 function App() {
   //local storage handlers
   const LOCAL_STORAGE_KEY = "contacts";
-  const localStorageReference = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const localStorageReference = () => localStorage.getItem(LOCAL_STORAGE_KEY);
   const [contacts, setContacts] = useState([]);
 
   //useNavigate passed through AddContactWrapper
   //due to deprecated class componenet support.
   // const nav = useNavigate();
 
-  const addContactHandler = (contact) => {
-    setContacts([...contacts, contact]);
+  //request
+  const requestContactsApi = async () => {
+    const response = await axios.get("/contacts");
+    return response.data;
   }
 
-  const filterContactHandler = (id) => {
+  const addContactHandler = async (contact) => {
+    let newId = await localStorageReference("initialId")
+    const request = {
+      id: newId,
+      ...contact
+    }
+
+    const response = await axios.post("/contacts", request);
+    setContacts([...contacts, response.data]);
+
+  }
+
+  const filterContactHandler = async (id) => {
+    await axios.delete(`/contacts/${id}`);
+
     //forEach contact that is !== id, create new contacts, set new contacts
     const copyContactsList = contacts.filter((contact) => contact.id !== id)
     setContacts(copyContactsList);
   }
   
-  //get local storage contacts by key, parse, if there are localStorageContacts, setContacts
+  //render api
   useEffect(() => {
-    const getLocalStorageContacts = JSON.parse(localStorageReference);
-    if (getLocalStorageContacts) setContacts(getLocalStorageContacts);
+    // const getLocalStorageContacts = JSON.parse(localStorageReference);
+    // if (getLocalStorageContacts) setContacts(getLocalStorageContacts);
+
+    const getContacts = async () => {
+      const requestedContacts = await requestContactsApi();
+      if (requestedContacts) setContacts(requestedContacts)
+    }
+    getContacts();
+
   }, []);
   
   useEffect(() => localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts)), [contacts]);
